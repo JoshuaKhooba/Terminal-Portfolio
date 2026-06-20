@@ -1,0 +1,68 @@
+"use client";
+import { certifications } from "@/data/portfolio";
+
+export function Certifications() {
+  return (
+    <section id="certifications" style={{ padding: "80px 24px" }}>
+      <div style={{ maxWidth: 860, margin: "0 auto" }}>
+        <div style={{ color: "#1a2540", fontSize: 13, marginBottom: 8 }}>// Credentials</div>
+        <h2 style={{ color: "#4ade80", fontSize: 22, fontWeight: 700, marginBottom: 40 }}>
+          $ ls certifications/
+        </h2>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 16 }}>
+          {certifications.map((cert, i) => (
+            <div key={i} className="terminal-card">
+              <div style={{ display: "flex", gap: 16, alignItems: "flex-start", marginBottom: 16 }}>
+                <span style={{ fontSize: 28 }}>{cert.icon}</span>
+                <div>
+                  <div style={{ color: "#e2e8f0", fontSize: 14, fontWeight: 600, lineHeight: 1.4 }}>{cert.title}</div>
+                  <div style={{ color: "#4ade80", fontSize: 12, marginTop: 4 }}>{cert.issuer}</div>
+                </div>
+              </div>
+
+              <div style={{ borderTop: "1px solid #1a2540", paddingTop: 12, display: "flex", flexDirection: "column", gap: 6 }}>
+                <div style={{ fontSize: 12 }}>
+                  <span style={{ color: "#4a5568" }}>date: </span>
+                  <span style={{ color: "#94a3b8" }}>{cert.date}</span>
+                </div>
+                {cert.hours && (
+                  <div style={{ fontSize: 12 }}>
+                    <span style={{ color: "#4a5568" }}>hours: </span>
+                    <span style={{ color: "#94a3b8" }}>{cert.hours}</span>
+                  </div>
+                )}
+                {cert.credentialId && (
+                  <div style={{ fontSize: 12 }}>
+                    <span style={{ color: "#4a5568" }}>id: </span>
+                    <span style={{ color: "#94a3b8" }}>{cert.credentialId}</span>
+                  </div>
+                )}
+              </div>
+
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 12 }}>
+                {cert.skills.slice(0, 4).map(s => (
+                  <span key={s} className="tag-green" style={{ fontSize: 11, padding: "2px 8px", borderRadius: 4, border: "1px solid rgba(74,222,128,0.3)", color: "#4ade80", background: "rgba(74,222,128,0.05)" }}>
+                    {s}
+                  </span>
+                ))}
+              </div>
+
+              {cert.verifyUrl && (
+                <a
+                  href={cert.verifyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline"
+                  style={{ marginTop: 16, fontSize: 12 }}
+                >
+                  ↗ verify_credential()
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

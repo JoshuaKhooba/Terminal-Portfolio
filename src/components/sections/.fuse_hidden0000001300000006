@@ -1,0 +1,46 @@
+"use client";
+import { skills } from "@/data/portfolio";
+
+const categories = Object.entries(skills);
+
+export function Skills() {
+  return (
+    <section id="skills" style={{ padding: "80px 24px", backgroundColor: "#0c1120" }}>
+      <div style={{ maxWidth: 860, margin: "0 auto" }}>
+        <div style={{ color: "#1a2540", fontSize: 13, marginBottom: 8 }}>// Technical skills</div>
+        <h2 style={{ color: "#4ade80", fontSize: 22, fontWeight: 700, marginBottom: 40 }}>
+          $ ls skills/
+        </h2>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
+          {categories.map(([category, items]) => (
+            <div key={category} className="terminal-card">
+              <div style={{ color: "#4ade80", fontSize: 13, marginBottom: 16 }}>
+                <span style={{ color: "#4a5568" }}>~/skills/</span>{category.toLowerCase().replace(/\s+/g, "_")}/
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {items.map((skill) => (
+                  <div key={skill.name}>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                      <span style={{ color: "#94a3b8", fontSize: 13 }}>{skill.name}</span>
+                      <span style={{ color: "#4a5568", fontSize: 12 }}>{skill.level}%</span>
+                    </div>
+                    <div style={{ height: 3, backgroundColor: "#1a2540", borderRadius: 2 }}>
+                      <div style={{
+                        height: "100%",
+                        width: `${skill.level}%`,
+                        backgroundColor: skill.level >= 80 ? "#4ade80" : skill.level >= 60 ? "#60a5fa" : "#a78bfa",
+                        borderRadius: 2,
+                        transition: "width 1s ease",
+                      }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

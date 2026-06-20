@@ -1,0 +1,63 @@
+"use client";
+import { personalInfo, education } from "@/data/portfolio";
+
+export function About() {
+  return (
+    <section id="about" style={{ padding: "80px 24px" }}>
+      <div style={{ maxWidth: 860, margin: "0 auto" }}>
+        <div style={{ color: "#1a2540", fontSize: 13, marginBottom: 8 }}>// About me</div>
+        <h2 style={{ color: "#4ade80", fontSize: 22, fontWeight: 700, marginBottom: 40 }}>
+          $ cat about_me.txt
+        </h2>
+
+        <div className="terminal-window">
+          <div className="terminal-header">
+            <span className="terminal-dot terminal-dot-red" />
+            <span className="terminal-dot terminal-dot-yellow" />
+            <span className="terminal-dot terminal-dot-green" />
+            <span className="terminal-title">about_me.txt</span>
+          </div>
+          <div className="terminal-body">
+            {personalInfo.about.map((para, i) => (
+              <p key={i} style={{ color: "#94a3b8", lineHeight: 1.8, marginBottom: 16, fontSize: 14 }}>
+                {para}
+              </p>
+            ))}
+
+            <hr className="terminal-divider" />
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
+              {/* Contact info */}
+              <div>
+                <div style={{ color: "#4ade80", marginBottom: 12, fontSize: 13 }}>$ cat contact.json</div>
+                {[
+                  ["📍 location", personalInfo.location],
+                  ["✉ email", personalInfo.email],
+                  ["🌐 github", "JoshuaKhooba"],
+                  ["💼 linkedin", "joshua-khooba"],
+                ].map(([k, v]) => (
+                  <div key={k} style={{ marginBottom: 6, fontSize: 13 }}>
+                    <span style={{ color: "#4a5568" }}>{k}: </span>
+                    <span style={{ color: "#e2e8f0" }}>&quot;{v}&quot;</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Education */}
+              <div>
+                <div style={{ color: "#4ade80", marginBottom: 12, fontSize: 13 }}>$ ls education/</div>
+                {education.map((edu, i) => (
+                  <div key={i} style={{ marginBottom: 12 }}>
+                    <div style={{ color: "#e2e8f0", fontSize: 13, fontWeight: 600 }}>{edu.degree}</div>
+                    <div style={{ color: "#64748b", fontSize: 12 }}>{edu.school}</div>
+                    <div style={{ color: "#4a5568", fontSize: 12 }}>{edu.period}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

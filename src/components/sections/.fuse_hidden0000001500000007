@@ -1,0 +1,75 @@
+"use client";
+import { useState } from "react";
+import { projects } from "@/data/portfolio";
+import { GithubIcon } from "@/components/ui/BrandIcons";
+
+export function Projects() {
+  const [showAll, setShowAll] = useState(false);
+  const displayed = showAll ? projects : projects.filter(p => p.featured);
+
+  return (
+    <section id="projects" style={{ padding: "80px 24px", backgroundColor: "#0c1120" }}>
+      <div style={{ maxWidth: 860, margin: "0 auto" }}>
+        <div style={{ color: "#1a2540", fontSize: 13, marginBottom: 8 }}>// My work</div>
+        <h2 style={{ color: "#4ade80", fontSize: 22, fontWeight: 700, marginBottom: 8 }}>
+          $ ls projects/
+        </h2>
+        <div style={{ color: "#4a5568", fontSize: 13, marginBottom: 40 }}>
+          {projects.length} repositories found
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
+          {displayed.map((project) => (
+            <div key={project.id} className="terminal-card" style={{ display: "flex", flexDirection: "column" }}>
+              {/* Project header */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <span style={{ fontSize: 20 }}>{project.emoji}</span>
+                  <span style={{ color: "#60a5fa", fontSize: 14, fontWeight: 600 }}>{project.title}</span>
+                </div>
+                {project.featured && (
+                  <span style={{ fontSize: 11, color: "#4ade80", border: "1px solid rgba(74,222,128,0.3)", padding: "1px 8px", borderRadius: 4 }}>
+                    featured
+                  </span>
+                )}
+              </div>
+
+              <p style={{ color: "#64748b", fontSize: 13, lineHeight: 1.7, flexGrow: 1, marginBottom: 16 }}>
+                {project.description}
+              </p>
+
+              {/* Tech tags */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 16 }}>
+                {project.technologies.slice(0, 4).map(t => (
+                  <span key={t} className="tag">{t}</span>
+                ))}
+              </div>
+
+              {/* Links */}
+              <div style={{ display: "flex", gap: 10, borderTop: "1px solid #1a2540", paddingTop: 12 }}>
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ fontSize: 12 }}>
+                  <GithubIcon size={13} /> code
+                </a>
+                {project.demo && (
+                  <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ fontSize: 12 }}>
+                    ↗ demo
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ textAlign: "center", marginTop: 32 }}>
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="btn-outline"
+            style={{ fontSize: 13 }}
+          >
+            {showAll ? "# show featured" : `$ ls -a  // show all ${projects.length}`}
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
